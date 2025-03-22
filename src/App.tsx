@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Platform } from 'react-native';
 import fetchPeople from './queries/usePeople';
 import fetchFilms from './queries/useFilms';
 import fetchPlanets from './queries/usePlanets';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { SafeAreaView } from 'react-native';
 
 type TranslatedPerson = {
   altura: string;
@@ -136,27 +137,37 @@ const PlanetsScreen = () => {
   );
 };
 
-const Stack = createNativeStackNavigator();
+const Tab = createMaterialTopTabNavigator();
 
-function RootStack() {
+function MyTabs() {
   return (
-    <Stack.Navigator initialRouteName="People">
-      <Stack.Screen name="Movies" component={MoviesScreen} />
-      <Stack.Screen name="People" component={PeopleScreen} />
-      <Stack.Screen name="Planets" component={PlanetsScreen} />
-    </Stack.Navigator>
+    <Tab.Navigator initialRouteName="Movies">
+      <Tab.Screen
+        name="Movies"
+        component={MoviesScreen}
+        options={{ tabBarLabel: 'Movies' }}
+      />
+      <Tab.Screen
+        name="People"
+        component={PeopleScreen}
+        options={{ tabBarLabel: 'People' }}
+      />
+      <Tab.Screen
+        name="Planets"
+        component={PlanetsScreen}
+        options={{ tabBarLabel: 'Planets' }}
+      />
+    </Tab.Navigator>
   );
 }
 
 const App = () => {
-
   return (
-    <NavigationContainer>
-      <View>
-        <Text>Holis</Text>
-      </View>
-      <RootStack />
-    </NavigationContainer>
+    <SafeAreaView style={styles.container}>
+      <NavigationContainer>
+        <MyTabs />
+      </NavigationContainer>
+    </SafeAreaView>
   );
 };
 
@@ -164,10 +175,8 @@ export default App;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 30,
-    paddingHorizontal: 20,
-    backgroundColor: '#E2CAE8',
-    height: '100%',
+    flex: 1,
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
   screenTitle: {
     fontSize: 28,
