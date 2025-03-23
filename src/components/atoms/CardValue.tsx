@@ -2,23 +2,23 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 type Props = {
-  title: string;
+  value: string | number;
 };
 
-const CardTitle = (props: Props) => {
+const CardValue = (props: Props) => {
   return (
     <View>
-      <Text style={styles.title}>{props.title}</Text>
+      <Text style={styles.value}>{props.value}</Text>
     </View>
   );
 };
 
-export default CardTitle;
+export default CardValue;
+
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 18,
+  value: {
+    fontSize: 14,
     fontWeight: 'bold',
-    marginBottom: 8,
   },
 });

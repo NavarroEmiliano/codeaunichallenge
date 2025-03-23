@@ -1,3 +1,7 @@
+import { TranslatedFilm } from '../types/Films';
+import { TranslatedPerson } from '../types/People';
+import { TranslatedPlanet } from '../types/Planets';
+
 const translations: Record<string, string> = {
   birth_year: 'anio_nacimiento',
   eye_color: 'color_ojos',
@@ -33,12 +37,14 @@ const translations: Record<string, string> = {
   edited: 'editado',
 };
 
-const propertyTranslator = (data: any) => {
-  return Object.keys(data).reduce((acc: any, key: string) => {
+type TranslatedData = { [key: string]: string | string[] | number };
+
+const propertyTranslator = (data: Record<string, any>) => {
+  return Object.keys(data).reduce((acc: TranslatedData, key: string) => {
     const newKey = translations[key] || key;
     acc[newKey] = data[key];
     return acc;
-  }, {});
+  }, {}) as TranslatedFilm | TranslatedPerson | TranslatedPlanet;
 };
 
 export default propertyTranslator;
