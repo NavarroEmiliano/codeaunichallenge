@@ -6,8 +6,8 @@ import MyTabs from './navigation/MyTabs';
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <NavigationContainer>
-        <MyTabs />
+      <NavigationContainer >
+        <MyTabs/>
       </NavigationContainer>
     </SafeAreaView>
   );
@@ -18,6 +18,8 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? 25 : 0,
+    paddingTop: Platform.OS === 'android' ? 70 : 0,
+    backgroundColor: '#000',
   },
+
 });
