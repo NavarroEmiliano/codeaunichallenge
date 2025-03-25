@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import CardLabel from '../atoms/CardLabel';
+import CardLabel from '../atoms/Label/CardLabel';
 import CardValue from '../atoms/CardValue';
 
 type Props = {

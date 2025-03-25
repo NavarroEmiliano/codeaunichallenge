@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
-import { FlatList, TextInput, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 import CardPerson from '../organisms/CardPerson';
 import { TranslatedPerson } from '../../types/People';
 
 type Props = {
   people: TranslatedPerson[];
+  hasNextPage: boolean;
+  fetchNextPage: () => any;
+  isFetchingNextPage: boolean;
 };
 
 const PeopleLayout = (props: Props) => {
@@ -20,15 +29,34 @@ const PeopleLayout = (props: Props) => {
     );
   };
 
+  useEffect(() => {
+    setFilteredPeople(props.people);
+  }, [props.people]);
+
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput onChangeText={HandleInput} />
       <FlatList
         data={filteredPeople}
         renderItem={({ item }) => <CardPerson item={item} />}
+        onEndReached={() => {
+          if (props.hasNextPage) {
+            props.fetchNextPage();
+          }
+        }}
+        onEndReachedThreshold={1}
+        ListFooterComponent={
+          props.isFetchingNextPage ? <ActivityIndicator size="small" /> : null
+        }
       />
     </View>
   );
 };
 
 export default PeopleLayout;
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'flex-end',
+  },
+});

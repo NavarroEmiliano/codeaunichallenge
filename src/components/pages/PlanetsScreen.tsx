@@ -1,18 +1,25 @@
-import { useEffect, useState } from 'react';
-import { TranslatedPlanet } from '../../types/Planets';
-import fetchPlanets from '../../queries/usePlanets';
+import { usePlanets } from '../../queries/usePlanets';
 import PlanetsLayout from '../templates/PlanetsLayout';
+import { ActivityIndicator } from 'react-native';
 
 const PlanetsScreen = () => {
-  const [planets, setPlanets] = useState<TranslatedPlanet[]>([]);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    usePlanets();
 
-  useEffect(() => {
-    (async () => {
-      const dataPlanets = await fetchPlanets();
-      setPlanets(dataPlanets);
-    })();
-  }, []);
-  return <PlanetsLayout planets={planets} />;
+  const planets = data?.pages.flatMap(page => page.results) || [];
+
+  if (isLoading) {
+    return <ActivityIndicator size="large" />;
+  }
+
+  return (
+    <PlanetsLayout
+      planets={planets}
+      hasNextPage={hasNextPage}
+      fetchNextPage={fetchNextPage}
+      isFetchingNextPage={isFetchingNextPage}
+    />
+  );
 };
 
 export default PlanetsScreen;

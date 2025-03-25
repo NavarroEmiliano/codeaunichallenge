@@ -1,18 +1,24 @@
-import { useEffect, useState } from 'react';
-import { TranslatedPerson } from '../../types/People';
-import fetchPeople from '../../queries/usePeople';
+import usePeople from '../../queries/usePeople';
 import PeopleLayout from '../templates/PeopleLayout';
+import { ActivityIndicator } from 'react-native';
 
 const PeopleScreen = () => {
-  const [people, setPeople] = useState<TranslatedPerson[]>([]);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    usePeople();
 
-  useEffect(() => {
-    (async () => {
-      const dataPeople = await fetchPeople();
-      setPeople(dataPeople);
-    })();
-  }, []);
-  return <PeopleLayout people={people} />;
+  const people = data?.pages.flatMap(page => page.results) || [];
+  if (isLoading) {
+    return <ActivityIndicator size="large" />;
+  }
+
+  return (
+    <PeopleLayout
+      people={people}
+      hasNextPage={hasNextPage}
+      fetchNextPage={fetchNextPage}
+      isFetchingNextPage={isFetchingNextPage}
+    />
+  );
 };
 
 export default PeopleScreen;

@@ -1,11 +1,23 @@
-import apiClient from '../api/apiClient';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { PlanetApi } from '../types/Planets';
 import propertyTranslator from '../utils/propertyTranslator';
+import axios from 'axios';
 
-
-const fetchPlanets = async () => {
-  const { data } = await apiClient.get('/planets');
-  return data.results.map((p: PlanetApi) => propertyTranslator(p));
+const fetchPlanets = async ({ pageParam }: { pageParam: string }) => {
+  const { data } = await axios.get(pageParam);
+  const translatedData = data.results.map((p: PlanetApi) =>
+    propertyTranslator(p),
+  );
+  return { ...data, results: translatedData };
 };
 
-export default fetchPlanets;
+export const usePlanets = () => {
+  return useInfiniteQuery({
+    queryKey: ['planets'],
+    queryFn: fetchPlanets,
+    getNextPageParam: lastPage => lastPage.next,
+    initialPageParam: 'https://swapi.py4e.com/api/planets',
+  });
+};
+
+export default usePlanets;
