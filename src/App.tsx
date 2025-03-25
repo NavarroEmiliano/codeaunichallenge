@@ -9,7 +9,7 @@ const App = () => {
     <SafeAreaView style={styles.container}>
       <ReactQueryProvider>
         <NavigationContainer>
-          <RootNavigator/>
+          <RootNavigator />
         </NavigationContainer>
       </ReactQueryProvider>
     </SafeAreaView>
