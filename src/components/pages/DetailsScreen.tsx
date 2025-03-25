@@ -1,17 +1,23 @@
 import React from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
-import { TranslatedPerson } from '../types/People';
-import { useSpecie } from '../queries/useSpecie';
-import { queryClient } from '../api/QueryClientProvider';
-import { TranslatedFilm } from '../types/Films';
-import { TranslatedPlanet } from '../types/Planets';
-import useStarships from '../queries/useStarships';
-import useVehicles from '../queries/useVehicles';
+import { TranslatedPerson } from '../../types/People';
+import { useSpecie } from '../../queries/useSpecie';
+import { queryClient } from '../../api/QueryClientProvider';
+import { TranslatedFilm } from '../../types/Films';
+import { TranslatedPlanet } from '../../types/Planets';
+import useStarships from '../../queries/useStarships';
+import useVehicles from '../../queries/useVehicles';
+import { StackScreenProps } from '@react-navigation/stack';
 
-type Props = { route: { params: { person: TranslatedPerson } } };
+type RootStackParamList = {
+  MainTabs: undefined;
+  Details: { person: TranslatedPerson };
+};
 
-const Details = (props: Props) => {
-  const { person } = props.route.params;
+type Props = StackScreenProps<RootStackParamList, 'Details'>;
+
+const DetailsScreen = ({ route }: Props) => {
+  const { person } = route.params;
   const { data: personSpecies } = useSpecie(person.especies);
   const { data: starships } = useStarships(person.naves_espaciales);
   const { data: vehicles } = useVehicles(person.vehiculos);
@@ -125,4 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Details;
+export default DetailsScreen;

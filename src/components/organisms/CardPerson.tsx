@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import CardTitle from '../atoms/CardTitle';
 import CardLabelValue from '../molecules/CardLabelValue';
 import { TranslatedPerson } from '../../types/People';
@@ -9,8 +9,7 @@ type Props = {
 };
 
 const CardPerson = (props: Props) => {
-  const navigation = useNavigation();
-
+  const navigation = useNavigation<any>();
   const handlePress = () => {
     navigation.navigate('Details', { person: props.item });
   };
@@ -31,7 +30,7 @@ export default CardPerson;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fff',
     padding: 15,
     marginBottom: 10,
     borderRadius: 8,

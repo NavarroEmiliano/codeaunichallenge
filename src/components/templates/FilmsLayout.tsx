@@ -1,7 +1,8 @@
 import React from 'react';
-import { ActivityIndicator, FlatList } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet } from 'react-native';
 import CardFilm from '../organisms/CardFilm';
 import { TranslatedFilm } from '../../types/Films';
+import { colors } from '../../theme';
 
 type Props = {
   films: TranslatedFilm[];
@@ -13,6 +14,7 @@ type Props = {
 const FilmsLayout = (props: Props) => {
   return (
     <FlatList
+      style={styles.container}
       data={props.films}
       renderItem={({ item }) => <CardFilm item={item} />}
       onEndReached={() => {
@@ -29,3 +31,10 @@ const FilmsLayout = (props: Props) => {
 };
 
 export default FilmsLayout;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.background,
+    padding: 10,
+  },
+});

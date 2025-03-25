@@ -1,8 +1,15 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import MyTabs from './MyTabs';
-import Details from '../screens/Details';
+import DetailsScreen from '../components/pages/DetailsScreen';
+import { TranslatedPerson } from '../types/People';
+import { colors } from '../theme';
 
-const Stack = createStackNavigator();
+type RootStackParamList = {
+  MainTabs: undefined;
+  Details: { person: TranslatedPerson };
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
   return (
@@ -14,11 +21,25 @@ const RootNavigator = () => {
       />
       <Stack.Screen
         name="Details"
-        component={Details}
-        options={{ headerTitle: 'Details' }}
+        component={DetailsScreen}
+        options={{
+          headerTitle: 'Details',
+          headerStyle: {
+            backgroundColor: colors.primary,
+            height: 52,
+          },
+          headerTitleStyle: {
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: 'white',
+          },
+          headerTitleAlign: 'center',
+          headerTintColor: 'white',
+        }}
       />
     </Stack.Navigator>
   );
 };
 
 export default RootNavigator;
+

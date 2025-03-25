@@ -19,4 +19,12 @@ export const typography = {
     normal: 1.5,
     relaxed: 1.75,
   },
-}; 
+  fontWeight: {
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+    extrabold: 800,
+      },
+};

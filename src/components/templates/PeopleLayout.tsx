@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import CardPerson from '../organisms/CardPerson';
 import { TranslatedPerson } from '../../types/People';
+import { colors } from '../../theme';
 
 type Props = {
   people: TranslatedPerson[];
@@ -37,6 +38,7 @@ const PeopleLayout = (props: Props) => {
     <View style={styles.container}>
       <TextInput onChangeText={HandleInput} />
       <FlatList
+        style={styles.list}
         data={filteredPeople}
         renderItem={({ item }) => <CardPerson item={item} />}
         onEndReached={() => {
@@ -58,5 +60,9 @@ export default PeopleLayout;
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'flex-end',
+  },
+  list: {
+    backgroundColor: colors.background,
+    padding: 10,
   },
 });
