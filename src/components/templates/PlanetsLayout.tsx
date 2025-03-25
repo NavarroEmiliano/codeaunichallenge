@@ -1,7 +1,8 @@
 import React from 'react';
-import { ActivityIndicator, FlatList } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet } from 'react-native';
 import { TranslatedPlanet } from '../../types/Planets';
 import CardPlanet from '../organisms/CardPlanet';
+import { colors } from '../../theme';
 
 type Props = {
   planets: TranslatedPlanet[];
@@ -14,6 +15,7 @@ const PlanetsLayout = (props: Props) => {
 
   return (
     <FlatList
+      style={styles.container}
       data={props.planets}
       renderItem={({ item }) => <CardPlanet item={item} />}
       onEndReached={() => {
@@ -30,3 +32,10 @@ const PlanetsLayout = (props: Props) => {
 };
 
 export default PlanetsLayout;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.background,
+    padding: 10,
+  },
+});

@@ -36,7 +36,7 @@ const PeopleLayout = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <TextInput onChangeText={HandleInput} />
+      <TextInput onChangeText={HandleInput} style={styles.searchBar} />
       <FlatList
         style={styles.list}
         data={filteredPeople}
@@ -60,9 +60,18 @@ export default PeopleLayout;
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'flex-end',
+    backgroundColor: colors.background,
+    paddingBlockStart: 10,
+    minHeight: '100%',
   },
   list: {
     backgroundColor: colors.background,
     padding: 10,
+  },
+  searchBar: {
+    marginInline: 10,
+    backgroundColor: colors.white,
+    borderRadius: 8,
+    paddingHorizontal: 10,
   },
 });
