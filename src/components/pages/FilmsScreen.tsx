@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import fetchFilms from '../../queries/useFilms';
+import React from 'react';
 import FilmsLayout from '../templates/FilmsLayout';
-import { TranslatedFilm } from '../../types/Films';
-
-
+import useFilms from '../../queries/useFilms';
+import { ActivityIndicator } from 'react-native';
 
 const FilmsScreen = () => {
-  const [films, setFilms] = useState<TranslatedFilm[]>([]);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useFilms();
 
-  useEffect(() => {
-    (async () => {
-      const dataFilms = await fetchFilms();
-      setFilms(dataFilms);
-    })();
-  }, []);
-  return <FilmsLayout films={films} />;
+  const films = data?.pages.flatMap(page => page.results) || [];
+
+  if (isLoading) {
+    return <ActivityIndicator size="large" />;
+  }
+  return (
+    <FilmsLayout
+      films={films}
+      hasNextPage={hasNextPage}
+      fetchNextPage={fetchNextPage}
+      isFetchingNextPage={isFetchingNextPage}
+    />
+  );
 };
 
 export default FilmsScreen;
-
