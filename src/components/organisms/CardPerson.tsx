@@ -1,22 +1,29 @@
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import CardTitle from '../atoms/CardTitle';
 import CardLabelValue from '../molecules/CardLabelValue';
 import { TranslatedPerson } from '../../types/People';
+import { useNavigation } from '@react-navigation/native';
 
 type Props = {
   item: TranslatedPerson;
 };
 
 const CardPerson = (props: Props) => {
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('Details', { person: props.item });
+  };
+
   return (
-    <View style={styles.card}>
+    <Pressable style={styles.card} onPress={handlePress}>
       <CardTitle title={props.item.nombre} />
       <CardLabelValue label={'Gender:'} value={props.item.genero} />
       <CardLabelValue
         label={'Birth Year:'}
         value={props.item.anio_nacimiento}
       />
-    </View>
+    </Pressable>
   );
 };
 

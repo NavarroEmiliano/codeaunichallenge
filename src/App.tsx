@@ -1,15 +1,15 @@
 import { StyleSheet, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
-import MyTabs from './navigation/MyTabs';
 import ReactQueryProvider from './api/QueryClientProvider';
+import RootNavigator from './navigation/RootNavigation';
 
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ReactQueryProvider>
         <NavigationContainer>
-          <MyTabs />
+          <RootNavigator/>
         </NavigationContainer>
       </ReactQueryProvider>
     </SafeAreaView>
