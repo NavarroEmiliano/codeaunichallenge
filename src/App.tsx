@@ -3,11 +3,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
 import ReactQueryProvider from './api/QueryClientProvider';
 import RootNavigator from './navigation/RootNavigation';
-import { colors } from './theme';
+import useColors from './theme/colors';
 
 const App = () => {
+  const { statusBarBackground } = useColors();
   return (
-    <SafeAreaView style={styles.statusBar}>
+    <SafeAreaView style={{...styles.statusBar, backgroundColor: statusBarBackground}}>
       <ReactQueryProvider>
         <NavigationContainer>
           <RootNavigator />
@@ -23,6 +24,5 @@ const styles = StyleSheet.create({
   statusBar: {
     flex: 1,
     paddingTop: Platform.OS === 'android' ? 30 : 0,
-    backgroundColor: colors.primary,
   },
 });

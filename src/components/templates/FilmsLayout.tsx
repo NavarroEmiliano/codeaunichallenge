@@ -1,8 +1,12 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, StyleSheet } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+} from 'react-native';
 import CardFilm from '../organisms/CardFilm';
 import { TranslatedFilm } from '../../types/Films';
-import { colors } from '../../theme';
+import useColors from '../../theme/colors';
 
 type Props = {
   films: TranslatedFilm[];
@@ -12,9 +16,10 @@ type Props = {
 };
 
 const FilmsLayout = (props: Props) => {
+  const {background} = useColors();
   return (
     <FlatList
-      style={styles.container}
+    style={{...styles.container, backgroundColor: background}}
       data={props.films}
       renderItem={({ item }) => <CardFilm item={item} />}
       onEndReached={() => {
@@ -22,9 +27,9 @@ const FilmsLayout = (props: Props) => {
           props.fetchNextPage();
         }
       }}
-      onEndReachedThreshold={1}
+      onEndReachedThreshold={0.5}
       ListFooterComponent={
-        props.isFetchingNextPage ? <ActivityIndicator size="large" /> : null
+        props.isFetchingNextPage ? <ActivityIndicator size="large" style={styles.spin} /> : null
       }
     />
   );
@@ -34,7 +39,9 @@ export default FilmsLayout;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.background,
     padding: 10,
+  },
+  spin: {
+    marginBottom: 20,
   },
 });

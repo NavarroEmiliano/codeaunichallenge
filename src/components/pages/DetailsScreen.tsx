@@ -8,11 +8,11 @@ import { TranslatedPlanet } from '../../types/Planets';
 import useStarships from '../../queries/useStarships';
 import useVehicles from '../../queries/useVehicles';
 import { StackScreenProps } from '@react-navigation/stack';
-import { colors } from '../../theme';
 import DetailsSeccion from '../organisms/DetailsSection';
 import DetailsMainSection from '../organisms/DetailsMainSection';
 import LoadingLarge from '../atoms/LoadingLarge';
 import ErrorMessage from '../atoms/ErrorMessage';
+import useColors from '../../theme/colors';
 
 type RootStackParamList = {
   MainTabs: undefined;
@@ -38,6 +38,8 @@ const DetailsScreen = ({ route }: Props) => {
     isLoading: vehiclesLoading,
     error: vehiclesError,
   } = useVehicles(person.vehiculos);
+
+  const {background} = useColors();
 
   const isLoading = speciesLoading || starshipsLoading || vehiclesLoading;
   const errorMessage =
@@ -81,7 +83,7 @@ const DetailsScreen = ({ route }: Props) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={{...styles.container, backgroundColor: background}}>
       <DetailsMainSection person={person} />
 
       <DetailsSeccion title={'Species'} data={speciesNames || []} />
@@ -96,7 +98,6 @@ const DetailsScreen = ({ route }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
     padding: 10,
   },
 });

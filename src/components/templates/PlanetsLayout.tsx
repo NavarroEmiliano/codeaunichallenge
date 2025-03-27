@@ -2,7 +2,7 @@ import React from 'react';
 import { ActivityIndicator, FlatList, StyleSheet } from 'react-native';
 import { TranslatedPlanet } from '../../types/Planets';
 import CardPlanet from '../organisms/CardPlanet';
-import { colors } from '../../theme';
+import useColors from '../../theme/colors';
 
 type Props = {
   planets: TranslatedPlanet[];
@@ -12,10 +12,10 @@ type Props = {
 };
 
 const PlanetsLayout = (props: Props) => {
-
+  const {background} = useColors();
   return (
     <FlatList
-      style={styles.container}
+      style={{...styles.container, backgroundColor: background}}
       data={props.planets}
       renderItem={({ item }) => <CardPlanet item={item} />}
       onEndReached={() => {
@@ -23,9 +23,9 @@ const PlanetsLayout = (props: Props) => {
           props.fetchNextPage();
         }
       }}
-      onEndReachedThreshold={1}
+      onEndReachedThreshold={0.5}
       ListFooterComponent={
-        props.isFetchingNextPage ? <ActivityIndicator size="large" /> : null
+        props.isFetchingNextPage ? <ActivityIndicator size="large" style={styles.spin} /> : null
       }
     />
   );
@@ -35,7 +35,9 @@ export default PlanetsLayout;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.background,
     padding: 10,
+  },
+  spin: {
+    marginBottom: 20,
   },
 });

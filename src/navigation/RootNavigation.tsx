@@ -2,7 +2,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MyTabs from './MyTabs';
 import DetailsScreen from '../components/pages/DetailsScreen';
 import { TranslatedPerson } from '../types/People';
-import { colors } from '../theme';
+import { typography } from '../theme';
+import useColors from '../theme/colors';
 
 type RootStackParamList = {
   MainTabs: undefined;
@@ -12,6 +13,7 @@ type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
+  const { navigationBackground, navigationText } = useColors();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -25,16 +27,16 @@ const RootNavigator = () => {
         options={{
           headerTitle: 'Details',
           headerStyle: {
-            backgroundColor: colors.primary,
+            backgroundColor: navigationBackground,
             height: 52,
           },
           headerTitleStyle: {
-            fontSize: 20,
+            fontSize: typography.fontSize.xl,
             fontWeight: 'bold',
-            color: 'white',
+            color: navigationText,
           },
           headerTitleAlign: 'center',
-          headerTintColor: 'white',
+          headerTintColor: navigationText,
         }}
       />
     </Stack.Navigator>

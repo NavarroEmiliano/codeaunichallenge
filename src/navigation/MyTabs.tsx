@@ -2,23 +2,25 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import FilmsScreen from '../components/pages/FilmsScreen';
 import PeopleScreen from '../components/pages/PeopleScreen';
 import PlanetsScreen from '../components/pages/PlanetsScreen';
-import { colors, typography } from '../theme';
+import { typography } from '../theme';
+import useColors from '../theme/colors';
 
 const Tab = createMaterialTopTabNavigator();
 
 const MyTabs = () => {
+  const { navigationBackground, navigationText } = useColors();
   return (
     <Tab.Navigator
       initialRouteName="Movies"
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: colors.primary,
+          backgroundColor: navigationBackground,
           height: 50,
         },
         tabBarLabelStyle: {
           fontSize: typography.fontSize.md,
           fontWeight: 'bold',
-          color: colors.white,
+          color: navigationText,
         },
       }}>
       <Tab.Screen

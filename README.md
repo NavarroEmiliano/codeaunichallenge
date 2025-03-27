@@ -1,97 +1,123 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# ✨ React Native SWAPI App
 
-# Getting Started
+Este es un proyecto de **React Native** basado en la API de **Star Wars (SWAPI)**, que permite explorar información sobre **Películas, Personajes y Planetas**.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 🚀 Características
 
-## Step 1: Start Metro
+- 🎢 **Movies**: Lista de todas las películas de Star Wars con detalles clave.
+- 👤 **People**: Lista de personajes con un buscador para filtrar por nombre.
+- 💐 **Planets**: Lista de planetas con información relevante.
+- 🔍 **Buscador**: Filtra personajes en tiempo real por su nombre.
+- 📜 **Detalles del Personaje**: Accede a más información al seleccionar un personaje.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+---
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## 📺 **Cómo Funciona la App**
+
+### 📌 **1. Navegación**
+
+La aplicación tiene **3 secciones principales**, accesibles mediante una barra de navegación:
+
+- **Movies** → Muestra una lista de películas con información como título, episodio, director y fecha de lanzamiento.
+- **People** → Lista de personajes con nombre, género, y fecha de nacimiento.
+- **Planets** → Muestra detalles de los planetas como nombre, poblacion, diametro, gravedad y terreno.
+
+### 📌 **2. Buscador de Personajes**
+
+En la sección **People**, hay un buscador en la parte superior para filtrar los personajes por su nombre en tiempo real.
+
+🔍 **Cómo funciona:**
+
+- Escribe en el campo de búsqueda y la lista se actualizará automáticamente.
+- Filtra los personajes sin necesidad de presionar un botón.
+
+### 📌 **3. Detalle del Personaje**
+
+Al seleccionar un personaje en la sección **People**, se abre la pantalla **Details**, que muestra:
+
+✅ Nombre\
+✅ Género\
+✅ Altura\
+✅ Color de ojos\
+✅ Color de pelo\
+✅ Color de piel\
+✅ Peso\
+✅ Año de nacimiento\
+✅ Películas en las que aparece
+✅ Especie
+✅ Planeta
+✅ Naves espaciales
+✅ Vehiculos
+
+### 📌 **4. Modo oscuro**
+
+El modo oscuro funciona dependiendo de la configuración del sistema operativo.
+
+
+---
+
+## 📆 **Instalación y Ejecución**
+
+
+
+> **Nota**: Asegúrate de haber completado la guía de [Configuración de tu entorno](https://reactnative.dev/docs/set-up-your-environment) antes de continuar.
+
+### 🔹 **1. Clonar el Repositorio**
 
 ```sh
-# Using npm
+git clone https://github.com/NavarroEmiliano/codeaunichallenge
+cd codeaunichallenge
+```
+
+### 🔹 **2. Instalar Dependencias**
+
+```sh
+npm install
+```
+
+### 🔹 **3. Ejecutar la Aplicación**
+
+#### Iniciar Metro
+
+Primero, necesitarás ejecutar **Metro**, la herramienta de construcción de JavaScript para React Native.
+
+Para iniciar el servidor de desarrollo de Metro, ejecuta el siguiente comando desde la raíz de tu proyecto de React Native:
+
+```sh
+# Usando npm
 npm start
 
-# OR using Yarn
+# O usando Yarn
 yarn start
-```
+``` 
 
-## Step 2: Build and run your app
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
 
-### Android
+#### ▶️ **Android**
 
 ```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+npx react-native run-android
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+#### 🍏 **iOS (MacOS)**
 
 ```sh
-bundle install
+cd ios && pod install && cd ..
+npx react-native run-ios
 ```
 
-Then, and every time you update your native dependencies, run:
+---
 
-```sh
-bundle exec pod install
-```
+## 🛠️ **Tecnologías Utilizadas**
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+- ⚛️ **React Native** - Framework principal.
+- 🏢 **React Navigation** - Manejo de navegación entre pantallas.
+- 🔄 **React Query** - Para manejo eficiente de datos.
+- 🛡️ **SWAPI API** - Fuente de datos de Star Wars.
 
-```sh
-# Using npm
-npm run ios
+---
 
-# OR using Yarn
-yarn ios
-```
+## ❓ **Problemas y Soluciones**
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+Si tienes problemas para ejecutar el proyecto, revisa la sección [Troubleshooting](https://reactnative.dev/docs/troubleshooting).
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
