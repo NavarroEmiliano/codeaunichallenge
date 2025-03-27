@@ -20,7 +20,6 @@ const MyTabs = () => {
           fontWeight: 'bold',
           color: colors.white,
         },
-        
       }}>
       <Tab.Screen
         name="Movies"

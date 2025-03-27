@@ -24,7 +24,7 @@ const FilmsLayout = (props: Props) => {
       }}
       onEndReachedThreshold={1}
       ListFooterComponent={
-        props.isFetchingNextPage ? <ActivityIndicator size="small" /> : null
+        props.isFetchingNextPage ? <ActivityIndicator size="large" /> : null
       }
     />
   );

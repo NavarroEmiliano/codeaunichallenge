@@ -1,6 +1,6 @@
 import { usePlanets } from '../../queries/usePlanets';
+import LoadingLarge from '../atoms/LoadingLarge';
 import PlanetsLayout from '../templates/PlanetsLayout';
-import { ActivityIndicator } from 'react-native';
 
 const PlanetsScreen = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -9,7 +9,7 @@ const PlanetsScreen = () => {
   const planets = data?.pages.flatMap(page => page.results) || [];
 
   if (isLoading) {
-    return <ActivityIndicator size="large" />;
+    return <LoadingLarge loading={true} />;
   }
 
   return (

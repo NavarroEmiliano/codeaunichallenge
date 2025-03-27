@@ -1,7 +1,7 @@
 import React from 'react';
 import FilmsLayout from '../templates/FilmsLayout';
 import useFilms from '../../queries/useFilms';
-import { ActivityIndicator } from 'react-native';
+import LoadingLarge from '../atoms/LoadingLarge';
 
 const FilmsScreen = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -10,7 +10,7 @@ const FilmsScreen = () => {
   const films = data?.pages.flatMap(page => page.results) || [];
 
   if (isLoading) {
-    return <ActivityIndicator size="large" />;
+    return <LoadingLarge loading={true} />;
   }
   return (
     <FilmsLayout

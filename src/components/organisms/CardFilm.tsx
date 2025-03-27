@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import CardTitle from '../atoms/CardTitle';
 import CardLabelValue from '../molecules/CardLabelValue';
 import { TranslatedFilm } from '../../types/Films';
+import { colors } from '../../theme';
 
 type Props = {
   item: TranslatedFilm;
@@ -10,7 +11,7 @@ type Props = {
 
 const CardFilm = (props: Props) => {
   return (
-    <View style={styles.card}>
+    <View style={styles.container}>
       <CardTitle title={props.item.titulo} />
       <CardLabelValue label={'Episode:'} value={props.item.id_episodio} />
       <CardLabelValue label={'Director:'} value={props.item.director} />
@@ -25,14 +26,12 @@ const CardFilm = (props: Props) => {
 export default CardFilm;
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#f9f9f9',
+  container: {
+    gap: 4,
+    backgroundColor: colors.white,
     padding: 15,
-    marginBottom: 10,
+    marginBottom: 20,
     borderRadius: 8,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
   },
 });

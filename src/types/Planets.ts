@@ -1,4 +1,6 @@
-export type PlanetApi = {
+import { BaseApi, BaseTranslated } from './Base';
+
+export type PlanetApi = BaseApi & {
   characters: string[];
   director: string;
   episode_id: string;
@@ -10,12 +12,9 @@ export type PlanetApi = {
   starships: string[];
   title: string[];
   vehicles: string[];
-  url: string;
-  created: string;
-  edited: string;
 };
 
-export type TranslatedPlanet = {
+export type TranslatedPlanet = BaseTranslated & {
   nombre: string;
   periodo_rotacion: string;
   periodo_orbital: string;
@@ -27,7 +26,4 @@ export type TranslatedPlanet = {
   poblacion: string;
   residentes: string[];
   peliculas: string[];
-  creado: string;
-  editado: string;
-  url: string;
 };

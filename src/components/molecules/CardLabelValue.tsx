@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import CardLabel from '../atoms/Label/CardLabel';
+import CardLabel from '../atoms/CardLabel';
 import CardValue from '../atoms/CardValue';
 
 type Props = {
@@ -22,6 +22,7 @@ export default CardLabelValue;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    alignItems: 'center',
     gap: 4,
   },
 });

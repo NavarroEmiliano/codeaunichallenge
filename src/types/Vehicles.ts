@@ -1,4 +1,6 @@
-export type VehicleApi = {
+import { BaseApi, BaseTranslated } from './Base';
+
+export type VehicleApi = BaseApi & {
   name: string;
   model: string;
   vehicle_class: string;
@@ -12,12 +14,9 @@ export type VehicleApi = {
   consumables: string;
   films: string[];
   pilots: string[];
-  url: string;
-  created: string;
-  edited: string;
 };
 
-export type TranslatedVehicle = {
+export type TranslatedVehicle = BaseTranslated & {
   nombre: string;
   modelo: string;
   clase_vehiculo: string;
@@ -31,7 +30,4 @@ export type TranslatedVehicle = {
   consumibles: string;
   peliculas: string[];
   pilotos: string[];
-  url: string;
-  creado: string;
-  editado: string;
 };

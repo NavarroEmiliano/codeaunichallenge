@@ -1,4 +1,6 @@
-export type SpecieApi = {
+import { BaseApi, BaseTranslated } from './Base';
+
+export type SpecieApi = BaseApi & {
   name: string;
   classification: string;
   designation: string;
@@ -11,12 +13,9 @@ export type SpecieApi = {
   homeworld: string;
   people: string[];
   films: string[];
-  url: string;
-  created: string;
-  edited: string;
 };
 
-export type TranslatedSpecie = {
+export type TranslatedSpecie = BaseTranslated & {
   nombre: string;
   clasificacion: string;
   designacion: string;
@@ -29,7 +28,4 @@ export type TranslatedSpecie = {
   mundo_natal: string;
   personas: string[];
   peliculas: string[];
-  url: string;
-  creado: string;
-  editado: string;
 };

@@ -4,18 +4,20 @@ import axios from 'axios';
 import { TranslatedStarship } from '../types/Starships';
 
 const fetchStarships = async (urls: string[]) => {
-    const promises = urls.map(url => axios.get(url));
-    const responses = await Promise.all(promises);
-  const translatedData = responses.map(
-    r => propertyTranslator(r.data) as TranslatedStarship,
-  );
-  return translatedData;
+  if (!urls.length) {
+    return [];
+  }
+
+  const promises = urls.map(url => axios.get(url));
+  const responses = await Promise.all(promises);
+  return responses.map(r => propertyTranslator(r.data) as TranslatedStarship);
 };
 
 export const useStarships = (urls: string[]) => {
   return useQuery({
-    queryKey: ['starships'],
+    queryKey: ['starships', urls],
     queryFn: () => fetchStarships(urls),
+    enabled: urls.length > 0,
   });
 };
 

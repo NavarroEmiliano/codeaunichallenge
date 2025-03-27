@@ -1,4 +1,6 @@
-export type TranslatedFilm = {
+import { BaseApi, BaseTranslated } from './Base';
+
+export type TranslatedFilm = BaseTranslated & {
   personajes: string[];
   director: string;
   id_episodio: string;
@@ -10,12 +12,9 @@ export type TranslatedFilm = {
   naves_espaciales: string[];
   titulo: string;
   vehiculos: string[];
-  url: string;
-  creado: string;
-  editado: string;
 };
 
-export type FilmApi = {
+export type FilmApi = BaseApi & {
   characters: string[];
   director: string;
   episode_id: string;
@@ -27,7 +26,4 @@ export type FilmApi = {
   starships: string[];
   title: string;
   vehicles: string[];
-  url: string;
-  created: string;
-  edited: string;
 };

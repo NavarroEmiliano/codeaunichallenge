@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { colors } from '../../theme';
 
 type Props = {
   value: string | number;
@@ -18,7 +19,8 @@ export default CardValue;
 
 const styles = StyleSheet.create({
   value: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
+    color: colors.cardValue,
   },
 });

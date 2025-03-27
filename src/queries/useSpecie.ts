@@ -4,15 +4,20 @@ import { useQuery } from '@tanstack/react-query';
 import { TranslatedSpecie } from '../types/Specie';
 
 const fetchSpecie = async (urls: string[]) => {
+  if (!urls.length) {
+    return [];
+  }
+
   const promises = urls.map(url => axios.get(url));
   const responses = await Promise.all(promises);
-  const translatedData = responses.map(r => propertyTranslator(r.data) as TranslatedSpecie);
-  return translatedData;
+
+  return responses.map(r => propertyTranslator(r.data) as TranslatedSpecie);
 };
 
 export const useSpecie = (urls: string[]) => {
   return useQuery({
-    queryKey: ['specie'],
+    queryKey: ['specie', urls],
     queryFn: () => fetchSpecie(urls),
+    enabled: urls.length > 0,
   });
 };

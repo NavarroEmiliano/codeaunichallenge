@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { colors } from '../../theme';
 
 type Props = {
   label: string;
@@ -18,6 +19,7 @@ export default CardLabel;
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: 14,
+    fontSize: 16,
+    color: colors.cardLabel,
   },
 });

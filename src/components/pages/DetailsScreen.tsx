@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, ScrollView } from 'react-native';
 import { TranslatedPerson } from '../../types/People';
 import { useSpecie } from '../../queries/useSpecie';
 import { queryClient } from '../../api/QueryClientProvider';
@@ -8,6 +8,11 @@ import { TranslatedPlanet } from '../../types/Planets';
 import useStarships from '../../queries/useStarships';
 import useVehicles from '../../queries/useVehicles';
 import { StackScreenProps } from '@react-navigation/stack';
+import { colors } from '../../theme';
+import DetailsSeccion from '../organisms/DetailsSection';
+import DetailsMainSection from '../organisms/DetailsMainSection';
+import LoadingLarge from '../atoms/LoadingLarge';
+import ErrorMessage from '../atoms/ErrorMessage';
 
 type RootStackParamList = {
   MainTabs: undefined;
@@ -18,11 +23,29 @@ type Props = StackScreenProps<RootStackParamList, 'Details'>;
 
 const DetailsScreen = ({ route }: Props) => {
   const { person } = route.params;
-  const { data: personSpecies } = useSpecie(person.especies);
-  const { data: starships } = useStarships(person.naves_espaciales);
-  const { data: vehicles } = useVehicles(person.vehiculos);
+  const {
+    data: personSpecies,
+    isLoading: speciesLoading,
+    error: speciesError,
+  } = useSpecie(person.especies);
+  const {
+    data: starships,
+    isLoading: starshipsLoading,
+    error: starshipsError,
+  } = useStarships(person.naves_espaciales);
+  const {
+    data: vehicles,
+    isLoading: vehiclesLoading,
+    error: vehiclesError,
+  } = useVehicles(person.vehiculos);
+
+  const isLoading = speciesLoading || starshipsLoading || vehiclesLoading;
+  const errorMessage =
+    speciesError?.message || starshipsError?.message || vehiclesError?.message;
 
   const speciesNames = personSpecies?.map(i => i.nombre);
+  const starshipsNames = starships?.map(i => i.nombre);
+  const vehiclesNames = vehicles?.map(i => i.nombre);
 
   const filmsCached = queryClient.getQueryData<{
     pages: { results: TranslatedFilm[] }[];
@@ -34,69 +57,38 @@ const DetailsScreen = ({ route }: Props) => {
   const films =
     filmsCached?.pages
       .flatMap(page => page.results)
-      .filter(f => person.peliculas.includes(f.url)) || [];
+      .filter(f => person.peliculas.includes(f.url))
+      .map(f => f.titulo) || [];
 
   const planets =
     planetsCached?.pages
       .flatMap(page => page.results)
-      .filter(f => person.mundo_natal.includes(f.url)) || [];
+      .filter(f => person.mundo_natal.includes(f.url))
+      .map(f => f.nombre) || [];
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['vehicles'] });
+    queryClient.invalidateQueries({ queryKey: ['starships'] });
+    queryClient.invalidateQueries({ queryKey: ['specie'] });
+  }, [person]);
+
+  if (isLoading) {
+    return <LoadingLarge loading={true} />;
+  }
+
+  if (errorMessage) {
+    return <ErrorMessage error={errorMessage} />;
+  }
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Información General</Text>
-        <Text style={styles.item}>Nombre: {person.nombre}</Text>
-        <Text style={styles.item}>Género: {person.genero}</Text>
-        <Text style={styles.item}>Altura: {person.altura} cm</Text>
-        <Text style={styles.item}>Color de ojos: {person.color_ojos}</Text>
-        <Text style={styles.item}>Color de pelo: {person.color_pelo}</Text>
-        <Text style={styles.item}>Color de piel: {person.color_piel}</Text>
-      </View>
+      <DetailsMainSection person={person} />
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Especies</Text>
-        {speciesNames?.map(i => (
-          <Text key={i} style={styles.item}>
-            {i}
-          </Text>
-        ))}
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Películas</Text>
-        {films?.map(i => (
-          <Text key={i.url} style={styles.item}>
-            {i.titulo}
-          </Text>
-        ))}
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Planeta Natal</Text>
-        {planets?.map(i => (
-          <Text key={i.url} style={styles.item}>
-            {i.nombre}
-          </Text>
-        ))}
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Naves Espaciales</Text>
-        {starships?.map(i => (
-          <Text key={i.url} style={styles.item}>
-            {i.nombre}
-          </Text>
-        ))}
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Vehículos</Text>
-        {vehicles?.map(i => (
-          <Text key={i.url} style={styles.item}>
-            {i.nombre}
-          </Text>
-        ))}
-      </View>
+      <DetailsSeccion title={'Species'} data={speciesNames || []} />
+      <DetailsSeccion title={'Movies'} data={films || []} />
+      <DetailsSeccion title={'Natural Planet'} data={planets || []} />
+      <DetailsSeccion title={'Starships'} data={starshipsNames || []} />
+      <DetailsSeccion title={'Vehicles'} data={vehiclesNames || []} />
     </ScrollView>
   );
 };
@@ -104,30 +96,8 @@ const DetailsScreen = ({ route }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: colors.background,
     padding: 10,
-  },
-  section: {
-    marginBottom: 20,
-    padding: 10,
-    backgroundColor: '#ffffff',
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 3,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#333',
-  },
-  item: {
-    fontSize: 16,
-    color: '#555',
-    marginBottom: 5,
   },
 });
 

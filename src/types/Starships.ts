@@ -1,4 +1,6 @@
-export type StarshipApi = {
+import { BaseApi, BaseTranslated } from './Base';
+
+export type StarshipApi = BaseApi & {
   name: string;
   model: string;
   starship_class: string;
@@ -13,12 +15,9 @@ export type StarshipApi = {
   cargo_capacity: string;
   consumables: string;
   pilots: string;
-  url: string;
-  created: string;
-  edited: string;
 };
 
-export type TranslatedStarship = {
+export type TranslatedStarship = BaseTranslated & {
   nombre: string;
   modelo: string;
   clase_nave_espacial: string;
@@ -33,7 +32,4 @@ export type TranslatedStarship = {
   capacidad_carga: string;
   consumibles: string;
   pilotos: string;
-  url: string;
-  creado: string;
-  editado: string;
 };

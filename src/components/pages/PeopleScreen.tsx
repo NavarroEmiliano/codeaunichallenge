@@ -1,14 +1,15 @@
 import usePeople from '../../queries/usePeople';
+import LoadingLarge from '../atoms/LoadingLarge';
 import PeopleLayout from '../templates/PeopleLayout';
-import { ActivityIndicator } from 'react-native';
 
 const PeopleScreen = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     usePeople();
 
   const people = data?.pages.flatMap(page => page.results) || [];
+
   if (isLoading) {
-    return <ActivityIndicator size="large" />;
+    return <LoadingLarge loading={true} />;
   }
 
   return (
